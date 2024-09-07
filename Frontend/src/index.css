@@ -15,3 +15,51 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+@font-face {
+  font-family: 'CustomMono';
+  src: url('./fonts/SFmono/SFMono-Regular.otf') format('opentype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'CustomMono';
+  src: url('./fonts/SFmono/SFMono-Bold.otf') format('opentype');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'CustomCali';
+  src: url('./fonts/Calibre/CalibreRegular.otf') format('opentype');
+}
+
+
+.bgcolor{
+  background-color: #b9c740;
+}
+
+.colordark{
+  background-color: #808000;
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+  z-index: 1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #bbbb14;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #808000;
+}

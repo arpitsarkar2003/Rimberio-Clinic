@@ -47,6 +47,7 @@ code {
 ::-webkit-scrollbar {
   width: 10px;
   z-index: 1;
+  @apply hidden;
 }
 
 /* Handle */
@@ -62,4 +63,98 @@ code {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #808000;
+}
+
+
+.btn-dark {
+  position: relative; /* Make sure the button has relative positioning */
+  z-index: 1;
+  overflow: hidden; /* Ensure the pseudo-element does not overflow the button */
+  transition: color 0.3s ease-in-out;
+}
+
+.btn-dark::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 8px;
+  background-color: #818839;
+  z-index: -1;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.btn-dark:hover::before,
+.btn-dark:focus::before {
+  transform: scaleX(1);
+}
+
+.btn-dark:hover,
+.btn-dark:focus {
+  color: #ffffff;
+}
+
+
+.btn {
+  position: relative; /* Make sure the button has relative positioning */
+  z-index: 1;
+  overflow: hidden; /* Ensure the pseudo-element does not overflow the button */
+  transition: color 0.3s ease-in-out;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 8px;
+  background-color: #7eb13c;
+  z-index: -1;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.btn:hover::before,
+.btn:focus::before {
+  transform: scaleX(1);
+}
+
+.btn:hover,
+.btn:focus {
+  color: #ffffff;
+}
+
+
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  margin: auto;
+}
+
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.75);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Home from './pages/Home';
 import NotFound from './common/NotFound';
 import About from './pages/About';
@@ -12,6 +12,11 @@ import Doctors from './pages/Doctors';
 import Navbar from './component/Navbar';
 import MobileNavbar from './component/MobileNavbar';
 import Loading from './common/Loading';
+import Footer from './component/Footer';
+import Register from './auth/Register';
+import Login from './auth/Login';
+
+import ScrollToTop from './common/ScrollToTop';
 
 
 function App() {
@@ -19,8 +24,13 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const color = "white";
 
-  const isAuth = false;
+  const navigate = useNavigate();
 
+  const [isAuth, setIsAuth] = useState(false);
+  const toggleAuth = () => {
+    setIsAuth(prevState => !prevState); // Toggle auth state for login/logout
+    navigate(0);
+  };
 
   useEffect(() => {
     const mediaQuery = window.matchMedia(`(prefers-color-scheme: ${color})`);
@@ -48,18 +58,20 @@ function App() {
 
   return (
     <>
-
+      <ScrollToTop />
       {loading && <Loading isDarkMode={isDarkMode}/>}
-      <div className='mx-4 sm:mx-[9%] font-customcali tracking-wide'>
+
+      
+      <div className='mx-4 sm:mx-[9%] tracking-wide font-customcali'>
         <div className="hidden xl:block">
-          <Navbar isDarkMode={isDarkMode} />
+          <Navbar isDarkMode={isDarkMode} isAuth={isAuth} toggleAuth={toggleAuth}/>
         </div>
         <div className="block xl:hidden">
-          <MobileNavbar isDarkMode={isDarkMode} />
+          <MobileNavbar isDarkMode={isDarkMode} isAuth={isAuth} toggleAuth={toggleAuth}/>
         </div>
         <div className='mt-[7rem]'>
           <Routes>
-            <Route path='/' element={<Home isDarkMode={isDarkMode} />} />
+            <Route path='/' element={<Home isDarkMode={isDarkMode} isAuth={isAuth}/>} />
             <Route path='/about' element={<About isDarkMode={isDarkMode} />} />
             <Route path='/contact' element={<Contact isDarkMode={isDarkMode} />} />
             <Route path='/my-profile' element={<MyProfile isDarkMode={isDarkMode} />} />
@@ -71,12 +83,8 @@ function App() {
         <Route path='/'/>
         <Route path='/'/> */}
 
-            <Route path='/login' element={<Home isDarkMode={isDarkMode} />} />
-            <Route path='/register' />
-
-
-
-
+            <Route path='/login' element={<Login isDarkMode={isDarkMode} />} />
+            <Route path='/register' element={<Register isDarkMode={isDarkMode} />} />
 
 
 
@@ -84,8 +92,9 @@ function App() {
             <Route path='*' element={<NotFound isDarkMode={isDarkMode} />} />
           </Routes>
         </div>
-
+      
       </div>
+      <Footer />
     </>
 
 

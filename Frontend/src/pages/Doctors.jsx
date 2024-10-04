@@ -161,7 +161,8 @@ function Doctors() {
             <div
               key={index}
               onClick={() => navigate(`/appointment/${item._id}`)}
-              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer"
+              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer opacity-0 animate-fadeIn"
+              style={{animationDelay: `${index * 100}ms`}}
             >
               <img
                 className="w-full object-cover object-center"

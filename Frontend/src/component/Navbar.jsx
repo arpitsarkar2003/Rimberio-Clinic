@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
 
@@ -26,6 +26,8 @@ const Navbar = ({ isDarkMode, isAuth, toggleAuth }) => {
         setIsOpen(prevState => !prevState);
     };
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 0);
@@ -35,6 +37,8 @@ const Navbar = ({ isDarkMode, isAuth, toggleAuth }) => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
+
 
     return (
         <div className={` fixed top-0 left-0 right-0 px-32 z-50 border-gray-300 flex justify-between items-center ${isScrolled ? 'border-b shadow-[rgba(145,193,94,0.1)_0px_5px_4px_0px] border-gray-200  backdrop-blur-2xl bg-white' : 'bg-white backdrop-blur-2xl shadow-none border-none'}`}>
@@ -70,12 +74,11 @@ const Navbar = ({ isDarkMode, isAuth, toggleAuth }) => {
                         <RiArrowDropDownLine className="w-8 h-8" />
                     </div>
                 ) : (
-                    <button
-                        onClick={() => {}}
-                        className="flex items-center justify-center px-4 py-2 text-md font-bold bg-lime-500 rounded-sm  hover:-translate-y-1 transition-all duration-200"
+                    <Link to="/Authentication"
+                        className="flex items-center justify-center px-4 py-2 text-md font-bold bg-lime-500 rounded-lg hover:-translate-y-1 transition-all duration-200"
                     >
                         Create A Remberio Acoount
-                    </button>
+                    </Link>
                 )}
 
                 {isOpen && (

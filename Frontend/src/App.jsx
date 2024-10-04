@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Home from './pages/Home';
 import NotFound from './common/NotFound';
 import About from './pages/About';
@@ -13,11 +13,9 @@ import Navbar from './component/Navbar';
 import MobileNavbar from './component/MobileNavbar';
 import Loading from './common/Loading';
 import Footer from './component/Footer';
-import Register from './auth/Register';
-import Login from './auth/Login';
+import Auth from './auth/Auth';
 
 import ScrollToTop from './common/ScrollToTop';
-
 
 function App() {
 
@@ -55,50 +53,63 @@ function App() {
     return () => clearTimeout(timer);
   }, [location.pathname]);
 
-
   return (
     <>
       <ScrollToTop />
       {loading && <Loading isDarkMode={isDarkMode}/>}
 
-      
+      <Routes>
+        {/* Routes with Navbar and Footer */}
+        <Route element={<MainLayout isDarkMode={isDarkMode} isAuth={isAuth} toggleAuth={toggleAuth} />}>
+          <Route path='/' element={<Home isDarkMode={isDarkMode} isAuth={isAuth}/>} />
+          <Route path='/about' element={<About isDarkMode={isDarkMode} />} />
+          <Route path='/contact' element={<Contact isDarkMode={isDarkMode} />} />
+          <Route path='/my-profile' element={<MyProfile isDarkMode={isDarkMode} />} />
+          <Route path='/my-appointments' element={<MyAppoientment isDarkMode={isDarkMode} />} />
+          <Route path='/appointment/:docId' element={<Appoientment isDarkMode={isDarkMode} />} />
+          <Route path='/doctors' element={<Doctors isDarkMode={isDarkMode} />} />
+          <Route path='/doctors/:speciality' element={<Doctors isDarkMode={isDarkMode} />} />
+        </Route>
+
+        {/* Route without Navbar and Footer */}
+        <Route path='/Authentication' element={<AuthLayout />}>
+          <Route path='' element={<Auth />} />
+        </Route>
+
+        {/* Catch-All Route */}
+        <Route path='*' element={<NotFound isDarkMode={isDarkMode} />} />
+      </Routes>
+    </>
+  );
+}
+
+// Layout component for pages with Navbar and Footer
+const MainLayout = ({ isDarkMode, isAuth, toggleAuth }) => {
+  return (
+    <>
       <div className='mx-4 sm:mx-[9%] tracking-wide font-customcali'>
         <div className="hidden xl:block">
-          <Navbar isDarkMode={isDarkMode} isAuth={isAuth} toggleAuth={toggleAuth}/>
+          <Navbar isDarkMode={isDarkMode} isAuth={isAuth} toggleAuth={toggleAuth} />
         </div>
         <div className="block xl:hidden">
-          <MobileNavbar isDarkMode={isDarkMode} isAuth={isAuth} toggleAuth={toggleAuth}/>
+          <MobileNavbar isDarkMode={isDarkMode} isAuth={isAuth} toggleAuth={toggleAuth} />
         </div>
         <div className='mt-[7rem]'>
-          <Routes>
-            <Route path='/' element={<Home isDarkMode={isDarkMode} isAuth={isAuth}/>} />
-            <Route path='/about' element={<About isDarkMode={isDarkMode} />} />
-            <Route path='/contact' element={<Contact isDarkMode={isDarkMode} />} />
-            <Route path='/my-profile' element={<MyProfile isDarkMode={isDarkMode} />} />
-            <Route path='/my-appointments' element={<MyAppoientment isDarkMode={isDarkMode} />} />
-            <Route path='/appointment/:docId' element={<Appoientment isDarkMode={isDarkMode} />} />
-            <Route path='/doctors' element={<Doctors isDarkMode={isDarkMode} />} />
-            <Route path='/doctors/:speciality' element={<Doctors isDarkMode={isDarkMode} />} />
-            {/* <Route path='/'/>
-        <Route path='/'/>
-        <Route path='/'/> */}
-
-            <Route path='/login' element={<Login isDarkMode={isDarkMode} />} />
-            <Route path='/register' element={<Register isDarkMode={isDarkMode} />} />
-
-
-
-
-            <Route path='*' element={<NotFound isDarkMode={isDarkMode} />} />
-          </Routes>
+          <Outlet />
         </div>
-      
       </div>
       <Footer />
     </>
-
-
   );
-}
+};
+
+// Layout for Auth route (without Navbar and Footer)
+const AuthLayout = () => {
+  return (
+    <div className="auth-container">
+      <Outlet />
+    </div>
+  );
+};
 
 export default App;

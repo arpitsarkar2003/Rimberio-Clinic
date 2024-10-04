@@ -4,7 +4,7 @@ import { AppContext } from '../context/AppContext';
 import Rating from '../common/Rating';
 import { AiFillCalendar } from 'react-icons/ai';
 import DatePicker from 'react-datepicker';
-import { format, addDays } from 'date-fns';
+import { format } from 'date-fns';
 import "react-datepicker/dist/react-datepicker.css";
 import TopDoctors from './components/TopDoctors';
 
@@ -73,16 +73,15 @@ function Appointment() {
 
   const CustomInput = React.forwardRef(({ value, onClick }, ref) => (
     <button
-    className="flex justify-end items-center gap-2 text-lime-600"
-    onClick={onClick}
-    ref={ref}
-    style={{ alignSelf: 'flex-end' }} // Ensure it stays right aligned
-    disabled={filterDoc?.isAvailable !== 'Available'}
-  >
-    <AiFillCalendar className="w-5 h-5" />
-    <span className="pt-2 whitespace-nowrap">{value || 'Select Date'}</span>
-  </button>
-  
+      className="flex justify-end items-center gap-2 text-lime-600"
+      onClick={onClick}
+      ref={ref}
+      style={{ alignSelf: 'flex-end', zIndex: 10 }}
+      disabled={filterDoc?.isAvailable !== 'Available'}
+    >
+      <AiFillCalendar className="w-5 h-5" />
+      <span className="pt-2 whitespace-nowrap">{value || 'Select Date'}</span>
+    </button>
   ));
 
   if (loading) {
@@ -204,13 +203,15 @@ function Appointment() {
           </div>
 
           {/* Time Slots for Selected Day */}
-          <div className='grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4'>
-            {docSlots[selectedDay]?.slots.map((slot, index) => (
+          <div className='grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3'>
+            {docSlots[selectedDay]?.slots?.map((slot, index) => (
               <button
                 key={index}
                 onClick={() => handleTimeSelection(slot.time)}
-                className={`px-3 py-2 border rounded-md transition-all duration-300 ease-in-out ${
-                  selectedTime === slot.time ? 'bg-lime-600 text-white scale-105' : 'bg-gray-100 text-gray-700 hover:bg-lime-100'
+                className={`px-4 py-2 border rounded-md text-center transition-all duration-300 ease-in-out ${
+                  selectedTime === slot.time
+                    ? 'bg-lime-600 text-white border-lime-600 scale-105'
+                    : 'bg-gray-100 text-gray-700 hover:bg-lime-100 border-gray-300'
                 }`}
               >
                 {slot.time}
@@ -218,19 +219,63 @@ function Appointment() {
             ))}
           </div>
 
-          <button
-            onClick={() => setShowModal(true)}
-            className="block w-full max-w-xs mx-auto mt-8 py-3 bg-lime-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-lime-500 transition-all duration-300 ease-in-out"
-            disabled={filterDoc.isAvailable !== 'Available'}
-          >
-            Book Now
-          </button>
+          <div className='mt-6 flex justify-center'>
+            {selectedTime && selectedDate ? (
+              <button
+                className='px-8 btn py-3 bg-lime-600 text-white rounded-md font-semibold hover:bg-lime-700 transition-colors'
+                onClick={() => setShowModal(true)}
+              >
+                Confirm Appointment
+              </button>
+            ) : (
+              <button
+                className='px-8 py-3 bg-gray-400 text-white rounded-md font-semibold cursor-not-allowed'
+                disabled
+              >
+                Select Date and Time
+              </button>
+            )}
+          </div>
         </div>
       </div>
-            
-            <div className='mt-[10%]'>
-              <TopDoctors docrows={4}/>
+
+      {/* Appointment Confirmation Modal */}
+      {showModal && (
+        <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'>
+          <div className='bg-white p-6 rounded-lg shadow-lg w-full max-w-lg'>
+            <h2 className='text-xl font-semibold mb-4'>Confirm Appointment</h2>
+            <p className='text-gray-700'>
+              You are about to book an appointment with Dr. {filterDoc.name} on{' '}
+              <span className='font-semibold'>
+                {format(selectedDate, 'MMMM d, yyyy')} at {selectedTime}
+              </span>.
+            </p>
+            <div className='flex justify-end mt-6'>
+              <button
+                className='px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-2'
+                onClick={() => setShowModal(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className='px-4 py-2 bg-lime-600 text-white rounded-md'
+                onClick={() => {
+                  // Handle booking confirmation logic here
+                  alert('Appointment Confirmed!');
+                  setShowModal(false);
+                }}
+              >
+                Confirm
+              </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Top Doctors Section */}
+      <div className='mt-10'>
+        <TopDoctors docrows={4}/>
+      </div>
     </div>
   );
 }

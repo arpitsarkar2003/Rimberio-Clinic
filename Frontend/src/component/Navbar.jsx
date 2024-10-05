@@ -84,7 +84,7 @@ const Navbar = ({ isDarkMode, isAuth, toggleAuth }) => {
                 {isOpen && (
                     <div className="absolute right-0 mt-2 min-w-48 bg-stone-100 rounded-md shadow-lg">
                         <Link to="/my-profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">My Profile</Link>
-                        <Link to="/my-appointments" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">My Appointments</Link>
+                        <Link to="/my-profile/my-appointments" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">My Appointments</Link>
                         <button className="block w-full text-left px-4 py-2 text-black bg-red-600/60 hover:bg-red-600" onClick={toggleAuth}>Logout</button>
                     </div>
                 )}

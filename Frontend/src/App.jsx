@@ -5,8 +5,7 @@ import Home from './pages/Home';
 import NotFound from './common/NotFound';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import MyProfile from './pages/patient/MyProfile';
-import MyAppoientment from './pages/patient/MyAppoientment';
+import MyProfile from './pages/patient/PatientProfile';
 import Appoientment from './pages/Appoientment';
 import Doctors from './pages/Doctors';
 import Navbar from './component/Navbar';
@@ -16,6 +15,11 @@ import Footer from './component/Footer';
 import Auth from './auth/Auth';
 
 import ScrollToTop from './common/ScrollToTop';
+import PatientAppoientment from './pages/patient/pages/PatientAppoientment';
+import PatiendPaymentRecords from './pages/patient/pages/PatiendPaymentRecords';
+import PatientReports from './pages/patient/pages/PatientReports';
+import PatientNavbar from './pages/patient/components/PatientNavbar';
+import PatientSettings from './pages/patient/pages/PatientSettings';
 
 function App() {
 
@@ -24,7 +28,7 @@ function App() {
 
   const navigate = useNavigate();
 
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(true);
   const toggleAuth = () => {
     setIsAuth(prevState => !prevState); // Toggle auth state for login/logout
     navigate(0);
@@ -64,8 +68,18 @@ function App() {
           <Route path='/' element={<Home isDarkMode={isDarkMode} isAuth={isAuth}/>} />
           <Route path='/about' element={<About isDarkMode={isDarkMode} />} />
           <Route path='/contact' element={<Contact isDarkMode={isDarkMode} />} />
-          <Route path='/my-profile' element={<MyProfile isDarkMode={isDarkMode} />} />
-          <Route path='/my-appointments' element={<MyAppoientment isDarkMode={isDarkMode} />} />
+
+
+          <Route path='/my-profile' element={<PatientLayout />}>
+            <Route path='' element={<MyProfile />} />
+            <Route path='my-appointment' element={<PatientAppoientment />} />
+            <Route path='reports' element={<PatientReports />} />
+            <Route path='paymentrecords' element={<PatiendPaymentRecords />} />
+            <Route path='/my-profile/setting' element={<PatientSettings />} />
+            <Route path='*' element={<NotFound isDarkMode={isDarkMode} />} />
+          </Route>
+
+
           <Route path='/appointment/:docId' element={<Appoientment isDarkMode={isDarkMode} />} />
           <Route path='/doctors' element={<Doctors isDarkMode={isDarkMode} />} />
           <Route path='/doctors/:speciality' element={<Doctors isDarkMode={isDarkMode} />} />
@@ -82,6 +96,20 @@ function App() {
     </>
   );
 }
+
+
+const PatientLayout = () => (
+  <>
+    <div className='border-t'>
+       <PatientNavbar />
+    <div className="mt-4">
+      <Outlet />
+    </div>
+    </div>
+   
+  </>
+);
+
 
 // Layout component for pages with Navbar and Footer
 const MainLayout = ({ isDarkMode, isAuth, toggleAuth }) => {

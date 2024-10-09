@@ -62,8 +62,8 @@ const MobileNavbar = ({ isDarkMode, isAuth, selectAuth }) => {
               </div>
               {isDropdownOpen && isAuth && (
                 <div className="absolute top-12 border right-0 mt-4 w-48 bg-white rounded-md z-50">
-                  <Link to="/my-profile" onClick={toggleMenu} className="block px-4 py-2 text-gray-800 hover:bg-gray-100">My Profile</Link>
-                  <Link to="/my-appointments" onClick={toggleMenu} className="block px-4 py-2 text-gray-800 hover:bg-gray-100">My Appointments</Link>
+                 <Link to="/my-profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-200 border-b-2 rounded-md mb-2">My Profile</Link>
+                 <Link to="/my-profile/myappointments" className="block px-4 py-2 text-gray-800 hover:bg-gray-200 border-b-2 rounded-md mb-2">My Appointments</Link>
                   <button onClick={selectAuth} className="block w-full text-left px-4 py-2 text-white bg-red-500 hover:bg-red-600">Logout</button>
                 </div>
               )}
@@ -105,12 +105,15 @@ const MobileNavbar = ({ isDarkMode, isAuth, selectAuth }) => {
             </div>
           ) : (
             <div className="relative w-full flex flex-col items-center px-10 space-y-2">
-              <button
+              <Link to='/Authentication'>
+               <button
                 onClick={selectAuth}
                 className="flex items-center justify-center w-full px-4 py-4 mb-4 text-md font-bold bg-lime-400 rounded-sm hover:shadow-lg hover:-translate-y-1"
               >
                 Login / Register
               </button>
+              </Link>
+             
             </div>
 
           )}

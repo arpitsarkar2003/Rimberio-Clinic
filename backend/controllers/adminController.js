@@ -5,13 +5,33 @@ import doctorModel from '../models/doctorModel.js';
 
 const addDoctor = async (req, res) => {
     try {
-        const { name, email, password, speciality, degree, experience, fees, address } = req.body;
-        const imageFile = req.file;
+        console.log("hrlooooooooooooo");
 
-        // Check for missing details
-        if (!name || !email || !password || !speciality || !degree || !experience || !fees || !address || !imageFile) {
-            return res.status(400).json({ error: 'Missing Details' });
+        const { name, email, password, speciality, degree, experience, fees, phoneNumber, about, } = req.body;
+        // // Check for missing address details
+        let { address } = req.body;
+        if (typeof(address) === 'string') {
+            address = JSON.parse(address);  // Parse the stringified address if necessary
+            console.log(address);
+
         }
+        // console.log(typeof(address));
+        
+        // Check for missing details
+        if (!name) return res.status(400).json({ error: "Name is required" });
+        if (!email) return res.status(400).json({ error: "Email is required" });
+        if (!password) return res.status(400).json({ error: "Password is required" });
+        if (!req.file) return res.status(400).json({ error: "Image is required" });
+        if (!speciality) return res.status(400).json({ error: "Speciality is required" });
+        if (!degree) return res.status(400).json({ error: "Degree is required" });
+        if (!experience) return res.status(400).json({ error: "Experience is required" });
+        if (!about) return res.status(400).json({ error: "About section is required" });
+        if (!fees) return res.status(400).json({ error: "Fees are required" });
+
+        if (!address || !address.line1 || !address.line2) {
+            return res.status(400).json({ error: "Complete address (line1 and line2) is required" });
+        }
+        if (!phoneNumber) return res.status(400).json({ error: "Phone number is required" });
 
         // Validate email
         if (!validator.isEmail(email)) {
@@ -19,21 +39,31 @@ const addDoctor = async (req, res) => {
         }
 
         // Validate password strength
-        if (!validator.isStrongPassword(password) || password.length < 8) {
-            return res.status(400).json({ error: 'Password not strong enough! Use Special Characters' });
+        if (!validator.isStrongPassword(password, { minLength: 8 })) {
+            return res.status(400).json({ error: 'Password not strong enough! Use special characters' });
         }
 
         // Hash the password
-        const docPassword = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, docPassword);
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // Check for missing address details
+        if (typeof address === 'string') {
+            address = JSON.parse(address);  // Parse the stringified address if necessary
+            console.log(address);
+
+        }
+
 
         // Upload image to Cloudinary
-        const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
+        const imageUpload = await cloudinary.uploader.upload(req.file.path, {
             folder: 'doctor',
             use_filename: true,
             unique_filename: false
         });
         const imageUrl = imageUpload.secure_url;
+        //! TODO: Upload image to gridfsmongodb
+
 
         // Prepare the doctor data
         const doctorData = {
@@ -44,8 +74,10 @@ const addDoctor = async (req, res) => {
             degree,
             experience,
             fees,
-            address: JSON.parse(address),  // Parse address if needed
-            image: imageUrl
+            address,
+            image: imageUrl,
+            phoneNumber,
+            about
         };
 
         // Save the new doctor record
@@ -53,11 +85,11 @@ const addDoctor = async (req, res) => {
         await newDoctor.save();
 
         // Send the success response
-        res.status(201).json({ message: 'Doctor Added Successfully', doctor: newDoctor });
+        res.status(201).json({ message: 'Doctor added successfully', doctor: newDoctor });
 
     } catch (error) {
+        console.error(error);  // Log the error for debugging
         res.status(500).json({ error: error.message });
-        console.error(error);
     }
 };
 

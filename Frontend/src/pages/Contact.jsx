@@ -116,7 +116,7 @@ export default function ContactPage() {
                       name="name"
                       id="name"
                       autoComplete="given-name"
-                      className="py-3 px-4 block w-full shadow-sm focus:ring-lime-500 focus:border-lime-500 border-gray-300 rounded-md"
+                      className="border py-3 px-4 block w-full shadow-sm focus:ring-lime-500 focus:border-lime-500 border-gray-100 rounded-md"
                       value={formData.name}
                       onChange={handleChange}
                       required
@@ -131,7 +131,7 @@ export default function ContactPage() {
                       name="email"
                       type="email"
                       autoComplete="email"
-                      className="py-3 px-4 block w-full shadow-sm focus:ring-lime-500 focus:border-lime-500 border-gray-300 rounded-md"
+                      className="border py-3 px-4 block w-full shadow-sm focus:ring-lime-500 focus:border-lime-500 border-gray-100 rounded-md"
                       value={formData.email}
                       onChange={handleChange}
                       required
@@ -145,7 +145,7 @@ export default function ContactPage() {
                       id="message"
                       name="message"
                       rows="4"
-                      className="py-3 px-4 block w-full shadow-sm focus:ring-lime-500 focus:border-lime-500 border-gray-300 rounded-md"
+                      className="border py-3 px-4 block w-full shadow-sm focus:ring-lime-500 focus:border-lime-500 border-gray-100 rounded-md"
                       value={formData.message}
                       onChange={handleChange}
                       required

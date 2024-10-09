@@ -30,38 +30,38 @@ export default function About() {
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
       {/* Hero Section */}
       <div className="relative bg-gradient-to-br from-lime-500 to-green-600 text-white overflow-hidden">
-      <div className="absolute inset-0">
-        <img
-          src="/placeholder.svg?height=1080&width=1920"
-          alt="Telemedicine background"
-          className="w-full h-full object-cover opacity-20"
-        />
-        <div className="absolute inset-0 bg-lime-500 opacity-50 mix-blend-multiply"></div>
-      </div>
-      <div className="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
-        <div className="text-center animate-fade-in-down">
-          <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-            About <span className="text-lime-300">Rimberio</span>
-          </h1>
-          <p className="mt-6 max-w-3xl mx-auto text-xl text-lime-100 animate-fade-in-up">
-            Revolutionizing healthcare through innovative telemedicine solutions.
-          </p>
+        <div className="absolute inset-0">
+          <img
+            src="/placeholder.svg?height=1080&width=1920"
+            alt="Telemedicine background"
+            className="w-full h-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-lime-500 opacity-50 mix-blend-multiply"></div>
         </div>
-        <div className="mt-10 flex justify-center animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          <a
-            href="#mission"
-            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-lime-700 bg-white hover:bg-lime-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
-          >
-            Learn More
-            <svg className="ml-2 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fillRule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-          </a>
+        <div className="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+          <div className="text-center animate-fade-in-down">
+            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+              About <span className="text-lime-300">Rimberio</span>
+            </h1>
+            <p className="mt-6 max-w-3xl mx-auto text-xl text-lime-100 animate-fade-in-up">
+              Revolutionizing healthcare through innovative telemedicine solutions.
+            </p>
+          </div>
+          <div className="mt-10 flex justify-center animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <a
+              href="#mission"
+              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-lime-700 bg-white hover:bg-lime-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+            >
+              Learn More
+              <svg className="ml-2 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fillRule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </a>
+          </div>
         </div>
-      </div>
-     
 
-      <style jsx>{`
+
+        <style jsx>{`
         @keyframes fadeInDown {
           from {
             opacity: 0;
@@ -92,10 +92,10 @@ export default function About() {
           animation: fadeInUp 0.8s ease-out forwards;
         }
       `}</style>
-    </div>
+      </div>
 
       {/* Mission Statement */}
-      
+
       <div id="mission" className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
         <div className="text-center animate-on-scroll">
           <h2 className="text-base font-semibold text-lime-600 tracking-wide uppercase">Our Mission</h2>
@@ -124,7 +124,7 @@ export default function About() {
               { name: 'Secure Platform', description: 'HIPAA-compliant video consultations', icon: FaShieldAlt },
               { name: 'Comprehensive Care', description: 'From diagnosis to follow-ups', icon: FaStethoscope },
             ].map((feature, index) => (
-              <div key={feature.name} className="relative animate-on-scroll" style={{animationDelay: `${index * 200}ms`}}>
+              <div key={feature.name} className="relative animate-on-scroll" style={{ animationDelay: `${index * 200}ms` }}>
                 <dt>
                   <feature.icon className="absolute h-6 w-6 text-lime-600" aria-hidden="true" />
                   <p className="ml-9 text-lg leading-6 font-medium text-gray-900">{feature.name}</p>
@@ -148,7 +148,7 @@ export default function About() {
             </div>
             <ul className="mx-auto space-y-16 sm:grid sm:grid-cols-2 sm:gap-16 sm:space-y-0 lg:grid-cols-3 lg:max-w-5xl">
               {teamMembers.map((member, index) => (
-                <li key={member.name} className="animate-on-scroll" style={{animationDelay: `${index * 200}ms`}}>
+                <li key={member.name} className="animate-on-scroll" style={{ animationDelay: `${index * 200}ms` }}>
                   <div className="space-y-6">
                     <img className="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56 ring-4 ring-lime-300 shadow-lg transform transition duration-500 hover:scale-105" src={member.image} alt={member.name} />
                     <div className="space-y-2">

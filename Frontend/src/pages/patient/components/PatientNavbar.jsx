@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom';
 function PatientNavbar() {
     return (
         <div>
-            <ul className='flex justify-between max-w-3xl items-center mx-auto mt-2'>
+            <ul className=' flex justify-between max-w-3xl items-center mx-auto mt-2'>
                 <NavLink 
                     to="/my-profile" 
                     end
@@ -24,7 +24,7 @@ function PatientNavbar() {
                 </NavLink>
 
                 <NavLink 
-                    to="/my-profile/my-appointment"
+                    to="/my-profile/myappointments"
                     className={({ isActive }) => 
                         isActive ? 'text-gray-900 border-b-2 border-lime-500' : 'text-gray-500 hover:text-gray-900'
                     }
@@ -43,7 +43,7 @@ function PatientNavbar() {
                 >
                     <li className='flex gap-2 group px-2 py-1 transition duration-200 cursor-pointer hover:bg-lime-200 rounded-md'>
                         <CiMedicalCross className='text-xl ' />
-                        <span>Reports</span>
+                        <span>Medical Reports</span>
                     </li>
                 </NavLink>
 

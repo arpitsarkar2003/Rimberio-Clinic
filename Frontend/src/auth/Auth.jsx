@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiUser, FiMail, FiLock, FiCalendar, FiPhone, FiFacebook, FiGithub } from 'react-icons/fi';
+import { FiUser, FiMail, FiLock, FiCalendar, FiPhone, FiFacebook, FiGithub, FiArrowLeft } from 'react-icons/fi';
 import { FaGoogle } from 'react-icons/fa';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import ForgotPassword from './ForgotPassword';
-import { FaArrowLeft } from "react-icons/fa6";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -66,12 +65,18 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-lime-50 to-green-100 py-12 px-4 sm:px-6 lg:px-8">
-
-        <div className='absolute top-5 left-5 flex items-center gap-2 cursor-pointer hover:bg-lime-600 p-2 text-lg font-black rounded-lg border hover:text-white transition duration-200' onClick={() => window.history.back()}>
-            <span><FaArrowLeft /></span> <span>back to home</span>
-        </div>
-      <div className="max-w-3xl w-full space-y-8 bg-white p-10 rounded-xl shadow-2xl">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-lime-100 via-green-200 to-lime-300 py-12 px-4 sm:px-6 lg:px-8">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="absolute top-5 left-5 flex items-center gap-2 cursor-pointer hover:bg-lime-600 p-2 text-base font-bold rounded-lg border-lime-600 text-lime-600 hover:text-white transition duration-200"
+        onClick={() => window.history.back()}
+      >
+        <FiArrowLeft />
+        <span>Back to home</span>
+      </motion.div>
+      <div className="max-w-3xl w-full space-y-8 bg-white backdrop-blur-sm bg-opacity-90 p-10 rounded-xl shadow-2xl">
         <AnimatePresence mode="wait">
           {!showVerification && !showForgotPassword && (
             <motion.div
@@ -81,7 +86,7 @@ const Auth = () => {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+              <h2 className="mt-6 text-center text-4xl font-extrabold text-gray-900">
                 {isLogin ? 'Welcome Back' : 'Join Rimberio'}
               </h2>
               <p className="mt-2 text-center text-sm text-gray-600">
@@ -92,42 +97,60 @@ const Auth = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">First Name</label>
-                      <input
-                        id="first-name"
-                        name="firstName"
-                        type="text"
-                        required
-                        className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm"
-                        value={formData.firstName}
-                        onChange={handleInputChange}
-                      />
+                      <div className="mt-1 relative rounded-md shadow-sm">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <FiUser className="h-5 w-5 text-gray-400" />
+                        </div>
+                        <input
+                          id="first-name"
+                          name="firstName"
+                          type="text"
+                          required
+                          className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm"
+                          placeholder="John"
+                          value={formData.firstName}
+                          onChange={handleInputChange}
+                        />
+                      </div>
                     </div>
                     <div>
                       <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">Last Name</label>
-                      <input
-                        id="last-name"
-                        name="lastName"
-                        type="text"
-                        required
-                        className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm"
-                        value={formData.lastName}
-                        onChange={handleInputChange}
-                      />
+                      <div className="mt-1 relative rounded-md shadow-sm">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <FiUser className="h-5 w-5 text-gray-400" />
+                        </div>
+                        <input
+                          id="last-name"
+                          name="lastName"
+                          type="text"
+                          required
+                          className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm"
+                          placeholder="Doe"
+                          value={formData.lastName}
+                          onChange={handleInputChange}
+                        />
+                      </div>
                     </div>
                   </div>
                 )}
                 <div>
                   <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">Email address</label>
-                  <input
-                    id="email-address"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                  />
+                  <div className="mt-1 relative rounded-md shadow-sm">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <FiMail className="h-5 w-5 text-gray-400" />
+                    </div>
+                    <input
+                      id="email-address"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm"
+                      placeholder="you@example.com"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                    />
+                  </div>
                 </div>
                 {!isLogin && (
                   <div>
@@ -139,7 +162,7 @@ const Auth = () => {
                       inputProps={{
                         name: 'phoneNumber',
                         required: true,
-                        className: 'mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm',
+                        className: 'block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm',
                       }}
                     />
                   </div>
@@ -147,42 +170,59 @@ const Auth = () => {
                 {!isLogin && (
                   <div>
                     <label htmlFor="date-of-birth" className="block text-sm font-medium text-gray-700">Date of Birth</label>
-                    <input
-                      id="date-of-birth"
-                      name="dateOfBirth"
-                      type="date"
-                      required
-                      className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm"
-                      value={formData.dateOfBirth}
-                      onChange={handleInputChange}
-                    />
+                    <div className="mt-1 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <FiCalendar className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        id="date-of-birth"
+                        name="dateOfBirth"
+                        type="date"
+                        required
+                        className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm"
+                        value={formData.dateOfBirth}
+                        onChange={handleInputChange}
+                      />
+                    </div>
                   </div>
                 )}
                 <div>
                   <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete="current-password"
-                    required
-                    className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                  />
+                  <div className="mt-1 relative rounded-md shadow-sm">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <FiLock className="h-5 w-5 text-gray-400" />
+                    </div>
+                    <input
+                      id="password"
+                      name="password"
+                      type="password"
+                      autoComplete="current-password"
+                      required
+                      className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm"
+                      placeholder="••••••••"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                    />
+                  </div>
                 </div>
                 {!isLogin && (
                   <div>
                     <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">Confirm Password</label>
-                    <input
-                      id="confirm-password"
-                      name="confirmPassword"
-                      type="password"
-                      required
-                      className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm"
-                      value={formData.confirmPassword}
-                      onChange={handleInputChange}
-                    />
+                    <div className="mt-1 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <FiLock className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        id="confirm-password"
+                        name="confirmPassword"
+                        type="password"
+                        required
+                        className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm"
+                        placeholder="••••••••"
+                        value={formData.confirmPassword}
+                        onChange={handleInputChange}
+                      />
+                    </div>
                   </div>
                 )}
                 <div>
@@ -210,7 +250,7 @@ const Auth = () => {
                     <FiFacebook className="w-5 h-5 text-blue-600" />
                   </button>
                   <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors duration-300">
-                    <FaGoogle className="w-5 h-5 text-blue-400" />
+                    <FaGoogle className="w-5 h-5 text-red-500" />
                   </button>
                   <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors duration-300">
                     <FiGithub className="w-5 h-5 text-gray-900" />
@@ -267,16 +307,21 @@ const Auth = () => {
                 </div>
                 <div>
                   <label htmlFor="otp" className="block text-sm font-medium text-gray-700">OTP</label>
-                  <input
-                    id="otp"
-                    name="otp"
-                    type="text"
-                    required
-                    className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm"
-                    placeholder="Enter 6-digit OTP"
-                    value={formData.otp}
-                    onChange={handleInputChange}
-                  />
+                  <div className="mt-1 relative rounded-md shadow-sm">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <FiLock className="h-5 w-5 text-gray-400" />
+                    </div>
+                    <input
+                      id="otp"
+                      name="otp"
+                      type="text"
+                      required
+                      className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-lime-500 focus:border-lime-500 sm:text-sm"
+                      placeholder="Enter 6-digit OTP"
+                      value={formData.otp}
+                      onChange={handleInputChange}
+                    />
+                  </div>
                 </div>
                 <div>
                   <button

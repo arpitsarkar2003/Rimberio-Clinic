@@ -7,7 +7,8 @@ const doctorSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true  // Ensure email is unique
     },
     password: {
         type: String,
@@ -49,10 +50,10 @@ const doctorSchema = new mongoose.Schema({
         line2: {
             type: String,
             required: true
-        },
+        }
     },
     phoneNumber: {
-        type: Number,
+        type: String,  // String instead of Number for flexibility
         required: true
     },
     date: {
@@ -60,11 +61,12 @@ const doctorSchema = new mongoose.Schema({
         default: Date.now
     },
     slots: {
-        type: Object,
+        type: [{ day: String, start: String, end: String }],  // Array of objects for slots
         default: []
     }
 }, { minimize: false });
 
+// Ensure that doctor model is either created or reused
 const doctorModel = mongoose.models.doctor || mongoose.model("doctor", doctorSchema);
 
 export default doctorModel;

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
 import Rating from '../common/Rating';
 import { AiFillCalendar } from 'react-icons/ai';
@@ -8,7 +8,7 @@ import { format } from 'date-fns';
 import "react-datepicker/dist/react-datepicker.css";
 import TopDoctors from './components/TopDoctors';
 
-function Appointment() {
+function Appointment({isAuth}) {
   const [filterDoc, setFilterDoc] = useState(null);
   const [loading, setLoading] = useState(true);
   const [docSlots, setDocSlots] = useState([]);
@@ -225,7 +225,7 @@ function Appointment() {
                 className='px-8 btn py-3 bg-lime-600 text-white rounded-md font-semibold hover:bg-lime-700 transition-colors'
                 onClick={() => setShowModal(true)}
               >
-                Confirm Appointment
+                {isAuth ? <span>Book Appointment</span> : <Link to='/Authentication'>You are not logged in! Login</Link>}
               </button>
             ) : (
               <button
